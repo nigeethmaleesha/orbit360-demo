@@ -1,0 +1,22 @@
+Subject: Interactive 360° Virtual Tour — Working Concept Demo
+
+Hello,
+
+We've prepared a working concept showing how a custom 360° virtual tour platform could function without relying on an expensive subscription service.
+
+Demo link: [INSERT VERCEL LINK AFTER DEPLOYMENT]
+
+The demonstration includes 360° viewing, clickable arrows to move between panoramic images, a location navigator, a mock route overview, and a sample tour editor. The editor is frontend-only at this stage, so uploads and edits are not saved to a server.
+
+Before estimating the complete project, could you please confirm:
+
+1. Can you share 3–5 original 360° photos, and tell us which camera or export format you use?
+2. Will the tours cover roads, properties, buildings, construction sites, or another type of location?
+3. Do you want to click arrows between photographs, use GPS/map-based navigation, or move freely in a reconstructed 3D environment?
+4. Approximately how many photographs per tour, and how many tours in total, do you expect?
+5. Will one administrator manage tours, or will multiple users/clients need their own accounts?
+6. Do you need features like branding, maps/floor plans, information hotspots, private sharing, or website embeds?
+
+Once we review your sample photos and confirm the expected navigation style, we can recommend an implementation and realistic cost/timeline.
+
+Thank you!

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#101b23" />
+  <meta name="description" content="An interactive 360° virtual-tour proof of concept. Explore panoramas, move between locations, and test a no-backend tour studio." />
+  <title>Orbit360 — Interactive Virtual Tour Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand"><div class="brand-symbol"><span></span><span></span><span></span></div><span>orbit<span class="brand-accent">360</span><small>VIRTUAL EXPERIENCE STUDIO</small></span></div>
+      <div class="sidebar-section-label">WORKSPACE</div>
+      <nav class="side-links" aria-label="Workspace pages">
+        <button class="side-link active" data-page="preview"><i data-lucide="view"></i><span>Tour preview</span><span class="link-dot"></span></button>
+        <button class="side-link" data-page="studio"><i data-lucide="sliders-horizontal"></i><span>Tour studio</span><span class="mini-pill">DEMO</span></button>
+        <button class="side-link" data-page="requirements"><i data-lucide="clipboard-list"></i><span>Project brief</span></button>
+      </nav>
+      <div class="sidebar-section-label projects-label">YOUR PROJECT</div>
+      <div class="sidebar-project"><span class="project-thumb" style="background-image:url('https://pannellum.org/images/tocopilla.jpg')"></span><div><strong>Atacama Explorer</strong><small>Interactive tour · 3 stops</small></div><i data-lucide="chevrons-up-down"></i></div>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-tip"><div class="tip-icon"><i data-lucide="sparkles"></i></div><strong>A glimpse of what's possible.</strong><p>This interactive demo runs entirely in your browser. No account or database required.</p><button id="sidebarBriefBtn">See client questions <i data-lucide="arrow-up-right"></i></button></div>
+      <div class="sidebar-user"><div class="avatar">O</div><div><strong>Orbit360 Demo</strong><span>Frontend prototype</span></div><i data-lucide="more-horizontal"></i></div>
+    </aside>
+    <div class="mobile-scrim" id="mobileScrim"></div>
+    <div class="work-area">
+      <header class="topbar"><div class="topbar-left"><button class="icon-btn mobile-menu" id="menuBtn" aria-label="Open navigation"><i data-lucide="menu"></i></button><span class="breadcrumb-base">Workspace</span><i data-lucide="chevron-right" class="breadcrumb-arrow"></i><span class="breadcrumb-main" id="breadcrumb">Tour preview</span></div><div class="topbar-right"><span class="top-status"><span class="status-pulse"></span> LIVE DEMO</span><span class="top-divider"></span><button class="top-help" id="helpBtn"><i data-lucide="circle-help"></i><span>How it works</span></button><div class="avatar header-avatar">O</div></div></header>
+      <main>
+        <section id="experiencePage" class="page-content">
+          <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span> THE INTERACTIVE EXPERIENCE</div><div class="intro-row"><div><h1 id="pageTitle">See it from every angle<span class="gold-dot">.</span></h1><p class="page-lead" id="pageLead">One place, endless perspectives. Explore a real 360° walkthrough and move naturally between connected scenes.</p></div><div class="intro-actions"><button class="btn btn-outline" id="shareBtn"><i data-lucide="link-2"></i><span>Copy demo link</span></button><button class="btn btn-primary" id="switchToStudio"><i data-lucide="wand-sparkles"></i><span>Open tour studio</span></button></div></div></div>
+          <div class="demo-strip"><div><i data-lucide="info"></i><strong>Interactive proof of concept</strong><span>Sample panoramas and illustrative scene connections — not an actual mapped route.</span></div><span class="demo-strip-tag">FRONTEND ONLY</span></div>
+          <div class="experience-grid">
+            <div class="viewer-column">
+              <section class="viewer-card" aria-label="Interactive 360 degree panorama"><div id="panorama" class="panorama"></div><div class="viewer-loading" id="viewerLoading"><div class="loader-orbit"></div><strong>Preparing your 360° view</strong><small>Loading panoramic photography...</small></div><div class="view-top-shade"></div><div class="view-bottom-shade"></div>
+                <div class="viewer-top-left"><span class="viewer-chip"><span class="chip-dot"></span> LIVE 360° VIEW</span><span class="viewer-loc"><i data-lucide="map-pin"></i><span id="viewerSceneLabel">Desert Arrival</span></span></div>
+                <div class="viewer-top-right"><span class="view-counter" id="viewCounter">01 <small>/ 03</small></span><button class="viewer-glass-btn" id="fullscreenBtn" title="Fullscreen" aria-label="Toggle fullscreen"><i data-lucide="maximize"></i></button></div>
+                <div class="viewer-bottom-left"><div class="viewer-place"><span class="place-index" id="placeIndex">STOP 01 — THE JOURNEY</span><h2 id="viewerTitle">Desert Arrival</h2><p id="viewerSubtitle">Follow the waypoints to discover more.</p></div><div class="interaction-hint"><i data-lucide="mouse-pointer-2"></i> Click & drag to explore · Scroll to zoom</div></div>
+                <div class="viewer-controls"><button id="zoomInBtn" title="Zoom in" aria-label="Zoom in"><i data-lucide="plus"></i></button><button id="zoomOutBtn" title="Zoom out" aria-label="Zoom out"><i data-lucide="minus"></i></button><div class="control-separator"></div><button id="rotateBtn" title="Toggle auto rotation" aria-label="Toggle auto rotation"><i data-lucide="rotate-cw"></i></button><button id="resetBtn" title="Reset view" aria-label="Reset view"><i data-lucide="compass"></i></button></div>
+                <div class="stage-footer"><span><i data-lucide="move"></i> 360° INTERACTIVE PANORAMA</span><div><button id="prevBtn" aria-label="Previous scene"><i data-lucide="arrow-left"></i></button><button id="nextBtn" aria-label="Next scene"><i data-lucide="arrow-right"></i></button></div></div>
+              </section>
+              <div class="viewer-subline"><span><i data-lucide="check-circle-2"></i> Real 360° image rendering</span><span><i data-lucide="smartphone"></i> Touch & mobile ready</span><span><i data-lucide="route"></i> Clickable scene navigation</span></div>
+              <section class="studio-editor hidden" id="studioEditor"><div class="card-heading"><div><div class="eyebrow small">NO-CODE TOUR BUILDER</div><h3>Connect your scenes</h3><p>Point the camera where you want an arrow, then choose its destination. Changes are session-only.</p></div><button class="btn btn-primary btn-small" id="addHotspotBtn"><i data-lucide="plus"></i> Add navigation arrow</button></div><div class="editor-instructions"><div class="step-badge">1</div><span>Drag the 360° image to the desired direction</span><i data-lucide="arrow-right"></i><div class="step-badge">2</div><span>Click <b>Add navigation arrow</b></span><i data-lucide="arrow-right"></i><div class="step-badge">3</div><span>Choose where it leads</span></div><div class="editor-actions"><button class="btn btn-outline btn-small" id="uploadBtn"><i data-lucide="upload-cloud"></i> Upload 360° image</button><button class="btn btn-outline btn-small" id="exportBtn"><i data-lucide="download"></i> Export tour JSON</button><input type="file" accept="image/jpeg,image/png,image/webp" id="fileInput" class="visually-hidden" aria-label="Upload a 360 degree image" /></div><p class="editor-note"><i data-lucide="info"></i> Image upload & edits work only in your current browser session. No server storage or permanent publishing in this prototype.</p></section>
+              <section class="feature-strip" id="featureStrip"><div><div class="feature-icon"><i data-lucide="move-3d"></i></div><strong>Immersive viewing</strong><small>Look around in every direction.</small></div><div><div class="feature-icon"><i data-lucide="navigation-2"></i></div><strong>Natural navigation</strong><small>Jump between connected points.</small></div><div><div class="feature-icon"><i data-lucide="layers-3"></i></div><strong>Your own platform</strong><small>Customizable, brand-ready UI.</small></div></section>
+            </div>
+            <aside class="journey-card" aria-label="Tour navigation"><div class="journey-head"><div><div class="eyebrow small">CURATED EXPERIENCE</div><h3>Explore the journey</h3><p><span id="stopCount">3</span> panoramic locations</p></div><button class="journey-more" id="routeInfoBtn" title="Route information"><i data-lucide="ellipsis"></i></button></div>
+              <div class="route-visual" aria-label="Illustrative route diagram"><div class="route-map-label"><i data-lucide="map"></i> TOUR OVERVIEW <span>NOT TO SCALE</span></div><svg viewBox="0 0 310 156" preserveAspectRatio="none" role="img" aria-label="A decorative route with three stops"><defs><pattern id="mapGrid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#d7dcd5" stroke-width="0.55"/></pattern></defs><rect width="310" height="156" fill="url(#mapGrid)"/><path d="M-10 104 Q72 30 150 115 T320 22" fill="none" stroke="#d7ded4" stroke-width="19" opacity=".55"/><path d="M-10 104 Q72 30 150 115 T320 22" fill="none" stroke="#ffffff" stroke-width="9" opacity=".65"/><path d="M50 113 C100 110 104 40 169 72 S235 121 272 34" fill="none" stroke="#c09a6b" stroke-width="2.6" stroke-dasharray="6 6"/><g id="mapMarkers"></g></svg><div class="map-bottom-tag"><i data-lucide="mouse-pointer-click"></i> Select a stop below to jump</div></div>
+              <div class="journey-list-head"><span>WAYPOINTS</span><span id="waypointCounter">01 / 03</span></div><div class="scene-list" id="sceneList"></div>
+              <button class="guided-btn" id="guidedBtn"><span class="guided-circle"><i data-lucide="play"></i></span><span><strong id="guidedLabel">Start guided tour</strong><small id="guidedSublabel">Let the experience unfold</small></span><i data-lucide="arrow-right" class="guided-arrow"></i></button>
+              <div class="right-footnote"><i data-lucide="shield-check"></i> Sample photography for demonstration</div>
+            </aside>
+          </div>
+          <div class="bottom-note"><span>POWERED BY AN OPEN-SOURCE PANORAMA ENGINE</span><span>Demo images: <a href="https://github.com/mpetroff/pannellum.org" target="_blank" rel="noopener noreferrer">Pannellum examples</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></span></div>
+        </section>
+        <section id="requirementsPage" class="page-content hidden"><div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span> DISCOVERY & SCOPING</div><div class="intro-row"><div><h1>Let's shape your vision<span class="gold-dot">.</span></h1><p class="page-lead">Before building the full platform, a few answers will help us scope it accurately and avoid unnecessary costs.</p></div><div class="intro-actions"><button class="btn btn-primary" id="copyQuestionsBtn"><i data-lucide="copy"></i> Copy questions for client</button></div></div></div>
+          <div class="brief-hero"><div class="brief-hero-badge"><i data-lucide="messages-square"></i> CLIENT DISCOVERY</div><h2>Six quick questions to get the right result.</h2><p>The demo shows what's possible today. These details determine the final platform's functionality, development time, and cost.</p></div><div class="questions-grid" id="questionsGrid"></div><div class="brief-callout"><div><i data-lucide="lightbulb"></i></div><div><strong>Start with a handful of real sample images.</strong><p>3–5 original 360° photos let us verify image format, loading performance, scene transitions, and whether the client wants linked panoramas or a true 3D digital twin.</p></div><button class="btn btn-outline" id="backToTour"><i data-lucide="arrow-left"></i> View demo</button></div></section>
+      </main>
+    </div>
+  </div>
+  <div class="modal-backdrop hidden" id="modalBackdrop" role="presentation"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" aria-label="Close dialog"><i data-lucide="x"></i></button><div class="modal-icon" id="modalIcon"><i data-lucide="route"></i></div><h3 id="modalTitle">Add navigation arrow</h3><p id="modalDescription">Connect this view to another location.</p><div id="modalBody"></div><div class="modal-actions" id="modalActions"></div></div></div>
+  <div class="toast" role="status" aria-live="polite" id="toast"><i data-lucide="check-circle-2"></i><span id="toastText">Done!</span></div>
+</body>
+</html>
